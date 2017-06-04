@@ -1,0 +1,26 @@
+-- INSERT INTO chat.users (LOGIN, PASS, USERNAME) 
+-- VALUES ('TEST', 'TEST','TEST');
+SELECT * FROM chat.users WHERE LOGIN = 'TEST';
+SELECT * FROM chat.users WHERE LOGIN LIKE '%TE%';
+SELECT * FROM chat.users WHERE LOGIN > 'T';
+SELECT * FROM chat.users WHERE PASS IN ('TEST');
+
+
+INSERT INTO `chat`.`chat`
+(`CHAT_NAME`,
+`DESCRIPTION`)
+VALUES
+('PUBLIC', 'SDFFGYH'
+);
+
+
+INSERT INTO `chat`.`message`
+(`FK_MESSAGE_USER_LOGIN`,
+`FK_MESSAGE_CHAT_NAME`,
+`MESSAGE_TEXT`)
+VALUES
+('TEST',
+'PUBLIC',
+'HELLO');
+
+
