@@ -7,12 +7,22 @@ use homework_1;
     SELECT 
         companies.COMPANY_NAME, customers.CUSTOMER_NAME, MIN(projects.PROJECT_COST) AS profit
     FROM
-        projects
+      (SELECT companies.COMPANY_NAME, customers.CUSTOMER_NAME, SUM(projects.PROJECT_COST) summ
+     FROM projects
             JOIN
         customers ON projects.CUSTOMER_ID = customers.CUSTOMER_ID
             JOIN
         companies ON projects.COMPANY_ID = companies.COMPANY_ID
-    GROUP BY (projects.COMPANY_ID);
+    GROUP BY (projects.CUSTOMER_ID)) as table1
+    JOIN
+        projects ON table1.summ = summ
+    JOIN
+        customers ON projects.CUSTOMER_ID = customers.CUSTOMER_ID
+            JOIN
+        companies ON projects.COMPANY_ID = companies.COMPANY_ID
+    
+    GROUP BY (projects.COMPANY_ID)
+    ;
     
 
 -- SELECT * FROM task5;

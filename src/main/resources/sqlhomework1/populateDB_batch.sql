@@ -32,8 +32,8 @@ SELECT * FROM customers;
 
 
 INSERT INTO projects (PROJECT_NAME, COMPANY_ID, CUSTOMER_ID) VALUES 
-('PROJECT1', 2, 4), ('PROJECT2', 1, 2), ('PROJECT3', 2, 2), 
-('PROJECT4', 10, 4), ('PROJECT5', 5, 1);
+('PROJECT1', 6, 1), ('PROJECT2', 7, 2), ('PROJECT3', 6, 2), 
+('PROJECT4', 7, 4), ('PROJECT5', 5, 1), ('PROJECT6', 6, 4);
 
 SELECT * FROM projects;
 
@@ -48,7 +48,7 @@ SELECT * FROM developer_skill;
 
 
 INSERT INTO developer_project (DEVELOPER_ID, PROJECT_ID) VALUES 
-(1, 5), (1, 1), (2, 4),(3, 2), (3, 3), 
+(1, 5), (1, 1), (2, 4), (2,6), (3, 2), (3, 3), 
 (4, 5), (5, 4), (6, 5), (7, 5), (7, 1);
 
 SELECT * FROM developer_project;
