@@ -20,3 +20,18 @@ ORDER BY sum_salary DESC;
 
 
 -- SELECT * FROM homework_1.task2_projects_salaries;
+
+
+
+
+-- второй вариант, в котором я учла, что если разработчики работают над несколькими проектами, 
+-- то и зарплату они получают разную на каждом проекте. Поєтому добавила в таблицу developer_project
+-- поле SALARY. В первом варианте у разработчика біла какая-то общая зарплата со всех проектов в поле 
+-- DEVELOPER_SALARY в таблице  developers
+SELECT 
+    PROJECT_ID, SUM(SALARY) sum_salary
+FROM
+    developer_project
+GROUP BY PROJECT_ID
+ORDER BY sum_salary DESC;
+-- LIMIT 1;

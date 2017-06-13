@@ -5,8 +5,8 @@ use homework_1;
 -- CREATE OR REPLACE VIEW task6 AS
     SELECT 
         projects.PROJECT_ID, projects.PROJECT_NAME, 
-        projects.PROJECT_COST, AVG(developers.DEVELOPER_SALARY) average_salary
-    FROM
+        projects.PROJECT_COST, AVG(developer_project.SALARY) average_salary -- developers.DEVELOPER_SALARY
+    FROM 
         developers
             INNER JOIN
         developer_project ON developers.DEVELOPER_ID = developer_project.DEVELOPER_ID
@@ -18,3 +18,8 @@ use homework_1;
     
 -- SELECT * FROM task6;    
     
+    
+-- AVG(developer_project.SALARY) учитывает, что если разработчики работают над несколькими проектами, 
+-- то и зарплату они получают разную на каждом проекте. Поэтому добавила в таблицу developer_project
+-- поле SALARY. В первом варианте у разработчика была какая-то общая зарплата со всех проектов в поле 
+-- DEVELOPER_SALARY в таблице  developers (AVG(developers.DEVELOPER_SALARY))
