@@ -5,28 +5,29 @@ package com.app.Entities;
  */
 public class Project {
 
-    private long id;
+    private int id;
     private String name;
     private int cost;
 //    private Company company;
 //    private Customer customer
-    private long companyId;
-    private long customerId;
+    private int companyId;
+    private int customerId;
 
+    public Project() {
+    }
 
-    public Project(long id, String name, int cost, long companyId, long customerId) {
-        this.id = id;
+    public Project(String name, int cost, int companyId, int customerId) {
         this.name = name;
         this.cost = cost;
         this.companyId = companyId;
         this.customerId = customerId;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -46,19 +47,19 @@ public class Project {
         this.cost = cost;
     }
 
-    public long getCompanyId() {
+    public int getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(long companyId) {
+    public void setCompanyId(int companyId) {
         this.companyId = companyId;
     }
 
-    public long getCustomerId() {
+    public int getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(long customerId) {
+    public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
 

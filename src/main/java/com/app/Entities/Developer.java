@@ -6,15 +6,15 @@ import java.util.Map;
 /**
  * Created by User on 04.06.2017.
  */
-public class Developer {
+public class  Developer {
 
-    private long id;
+    private int id;
     private String name;
     private String lastName;
 //    private List<Skill> skills;
-    private List<Long> skillIdList;
+    private List<Integer> skillIdList;
     //Map of projects id and developer salaries on these projects
-    private Map<Long, Integer> projectIDSalary;
+    private Map<Integer, Integer> projectIDSalary;
 
     public Developer() {
 
@@ -25,11 +25,11 @@ public class Developer {
         this.lastName = lastName;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -49,19 +49,19 @@ public class Developer {
         this.lastName = lastName;
     }
 
-    public List<Long> getSkillIdList() {
+    public List<Integer> getSkillIdList() {
         return skillIdList;
     }
 
-    public void setSkillIdList(List<Long> skillIdList) {
+    public void setSkillIdList(List<Integer> skillIdList) {
         this.skillIdList = skillIdList;
     }
 
-    public Map<Long, Integer> getProjectIDSalary() {
+    public Map<Integer, Integer> getProjectIDSalary() {
         return projectIDSalary;
     }
 
-    public void setProjectIDSalary(Map<Long, Integer> projectIDSalary) {
+    public void setProjectIDSalary(Map<Integer, Integer> projectIDSalary) {
         this.projectIDSalary = projectIDSalary;
     }
 

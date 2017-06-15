@@ -1,6 +1,7 @@
 package com.app.DAO;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by User on 04.06.2017.
@@ -9,11 +10,11 @@ public interface  DAO<T> {
 
     void create(T entity);
 
-    T read(long id);
+    Optional<T> read(int id);
 
     T update(T entity);
 
-    boolean delete(long id);
+    boolean delete(int id);
 
     List<T> getAll();
 }

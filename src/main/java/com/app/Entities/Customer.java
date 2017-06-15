@@ -5,19 +5,21 @@ package com.app.Entities;
  */
 public class Customer {
 
-    private long id;
+    private int id;
     private String name;
 
-    public Customer(long id, String name) {
-        this.id = id;
+    public Customer() {
+    }
+
+    public Customer(String name) {
         this.name = name;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

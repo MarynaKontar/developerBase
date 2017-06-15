@@ -1,7 +1,7 @@
 package com.app;
 
 import com.app.DAO.DAODeveloper;
-import com.app.DAO.DAODeveloperImpl;
+import com.app.DAO.JdbcDao.DAODeveloperImpl;
 import com.app.Entities.Developer;
 
 /**
@@ -15,7 +15,8 @@ public class Main {
         Developer developer = new Developer("Andrey", "Minov");
         Developer developer1 = new Developer("Artur", "Roze");
 
-        daoDeveloper.create(developer1);
+//        daoDeveloper.create(developer1);
+        System.out.println(daoDeveloper.read(2));
 
     }
 }
