@@ -36,7 +36,7 @@ public class DAODeveloperImpl implements DAODeveloper {
             addSkillsToDeveloper_skillTable(entity, connection);
 //            addDevelopersAndProjectsToDeveloper_projectTable(entity, connection);
 
-
+            connection.commit();
         } catch (SQLException e) {
             throw new DatabaseException(e);
         }
