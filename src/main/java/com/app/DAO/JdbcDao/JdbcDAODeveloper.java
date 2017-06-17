@@ -12,7 +12,7 @@ import java.util.Optional;
 /**
  * Created by User on 12.06.2017.
  */
-public class DAODeveloperImpl implements DAODeveloper {
+public class JdbcDAODeveloper implements DAODeveloper {
 
     private static final String READ_SQL = "select * from developers where developer_id=?";
     private static final String CREATE_SQL = "insert into developers(developer_name, developer_lastname) values(?, ?, ?)";

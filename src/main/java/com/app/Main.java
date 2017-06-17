@@ -1,7 +1,7 @@
 package com.app;
 
 import com.app.DAO.DAODeveloper;
-import com.app.DAO.JdbcDao.DAODeveloperImpl;
+import com.app.DAO.JdbcDao.JdbcDAODeveloper;
 import com.app.Entities.Developer;
 
 /**
@@ -10,7 +10,7 @@ import com.app.Entities.Developer;
 public class Main {
     public static void main(String[] args) {
 
-        DAODeveloper daoDeveloper = new DAODeveloperImpl();
+        DAODeveloper daoDeveloper = new JdbcDAODeveloper();
 
         Developer developer = new Developer("Andrey", "Minov");
         Developer developer1 = new Developer("Artur", "Roze");
