@@ -7,5 +7,5 @@ import com.app.Entities.Developer;
  */
 public interface DAODeveloper extends DAO<Developer> {
 
-    boolean deleteByKey(int id);
+
 }

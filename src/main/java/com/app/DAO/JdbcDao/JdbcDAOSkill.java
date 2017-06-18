@@ -1,8 +1,9 @@
 package com.app.DAO.JdbcDao;
 
 import com.app.BackendException.DatabaseException;
-import com.app.DAO.DAOCompany;
-import com.app.Entities.Company;
+import com.app.DAO.DAOSkill;
+import com.app.Entities.Customer;
+import com.app.Entities.Skill;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,19 +14,19 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by User on 13.06.2017.
+ * Created by User on 18.06.2017.
  */
-public class JdbcDAOCompany implements DAOCompany {
+public class JdbcDAOSkill implements DAOSkill {
 
-    private static final String CREATE_SQL = "insert into companies(company_name) value(?)";
-    private static final String READ_SQL = "select * from companies where company_id=?";
-    private static final String UPDATE_SQL = "update companies set company_name=?, where company_id=?";
-    private static final String DELETE_SQL = "delete from companies where company_id=?";
-    private static final String GET_ALL_SQL = "select * from companies";
+    private static final String CREATE_SQL = "insert into skills(skill_name) value(?)";
+    private static final String READ_SQL = "select * from skills where skill_id=?";
+    private static final String UPDATE_SQL = "update skills set skill_name=?, where skill_id=?";
+    private static final String DELETE_SQL = "delete from skills where skill_id=?";
+    private static final String GET_ALL_SQL = "select * from skills";
+
 
     @Override
-    public void create(Company entity) {
-
+    public void create(Skill entity) {
         try (Connection connection = ConnectionToDB.getConnection();
              PreparedStatement ps = connection.prepareStatement(CREATE_SQL)) {
             ps.setString(1, entity.getName());
@@ -36,33 +37,32 @@ public class JdbcDAOCompany implements DAOCompany {
     }
 
     @Override
-    public Optional<Company> read(int id) {
-
+    public Optional<Skill> read(int id) {
         try (Connection connection = ConnectionToDB.getConnection();
              PreparedStatement ps = connection.prepareStatement(READ_SQL)) {
             ps.setInt(1, id);
-            Company company = new Company();
+            Skill skill = new Skill();
             try (ResultSet result = ps.executeQuery()) {
                 if (!result.next()) return Optional.empty();
-                company.setId(result.getInt("COMPANY_ID"));
-                company.setName(result.getString("COMPANY_NAME"));
+                skill.setId(result.getInt("SKILL_ID"));
+                skill.setName(result.getString("SKILL_NAME"));
             }
-            return Optional.of(company);
+            return Optional.of(skill);
         } catch (SQLException e) {
             throw new DatabaseException(e);
         }
     }
 
-
     @Override
-    public Optional<Company> update(Company entity) {
-        Optional<Company> company = read(entity.getId());
+    public Optional<Skill> update(Skill entity) {
+
+        Optional<Skill> skill = read(entity.getId());
         try (Connection connection = ConnectionToDB.getConnection();
              PreparedStatement ps = connection.prepareStatement(UPDATE_SQL)) {
             ps.setString(1, entity.getName());
             ps.setInt(2, entity.getId());
             ps.executeUpdate();
-            return company;
+            return skill;
         } catch (SQLException e) {
             throw new DatabaseException(e);
         }
@@ -70,6 +70,7 @@ public class JdbcDAOCompany implements DAOCompany {
 
     @Override
     public boolean delete(int id) {
+
         try (Connection connection = ConnectionToDB.getConnection();
              PreparedStatement ps = connection.prepareStatement(DELETE_SQL)) {
             ps.setInt(1, id);
@@ -81,20 +82,19 @@ public class JdbcDAOCompany implements DAOCompany {
     }
 
     @Override
-    public List<Company> getAll() {
-
+    public List<Skill> getAll() {
         try (Connection connection = ConnectionToDB.getConnection();
              PreparedStatement ps = connection.prepareStatement(GET_ALL_SQL);
              ResultSet result = ps.executeQuery()) {
-            List<Company> companies = new ArrayList<>();
+            List<Skill> skills = new ArrayList<>();
 
             while (result.next()) {
-                Company company = new Company();
-                company.setId(result.getInt("company_id"));
-                company.setName(result.getString("company_name"));
-                companies.add(company);
+                Skill skill = new Skill();
+                skill.setId(result.getInt("SKILL_ID"));
+                skill.setName(result.getString("SKILL_NAME"));
+                skills.add(skill);
             }
-            return companies;
+            return skills;
 
         } catch (Exception e) {  //ловлю Exception, а не SQLException потому что .add может кидать много разных Exception,
             // но пользователю это не надо. Ему главное знать, что к БД не удалось обратиться.
@@ -102,3 +102,4 @@ public class JdbcDAOCompany implements DAOCompany {
         }
     }
 }
+

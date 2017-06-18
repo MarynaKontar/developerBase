@@ -12,7 +12,12 @@ public interface  DAO<T> {
 
     Optional<T> read(int id);
 
-    T update(T entity);
+    /**
+     *
+     * @param entity
+     * @return old entity
+     */
+    Optional<T> update(T entity);
 
     boolean delete(int id);
 

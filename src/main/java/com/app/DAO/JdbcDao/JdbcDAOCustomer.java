@@ -1,8 +1,9 @@
 package com.app.DAO.JdbcDao;
 
 import com.app.BackendException.DatabaseException;
-import com.app.DAO.DAOCompany;
+import com.app.DAO.DAOCustomer;
 import com.app.Entities.Company;
+import com.app.Entities.Customer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,19 +14,20 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by User on 13.06.2017.
+ * Created by User on 18.06.2017.
  */
-public class JdbcDAOCompany implements DAOCompany {
+public class JdbcDAOCustomer implements DAOCustomer {
 
-    private static final String CREATE_SQL = "insert into companies(company_name) value(?)";
-    private static final String READ_SQL = "select * from companies where company_id=?";
-    private static final String UPDATE_SQL = "update companies set company_name=?, where company_id=?";
-    private static final String DELETE_SQL = "delete from companies where company_id=?";
-    private static final String GET_ALL_SQL = "select * from companies";
+
+    private static final String CREATE_SQL = "insert into customers(customer_name) value(?)";
+    private static final String READ_SQL = "select * from customers where customer_id=?";
+    private static final String UPDATE_SQL = "update customers set customer_name=?, where customer_id=?";
+    private static final String DELETE_SQL = "delete from customers where customer_id=?";
+    private static final String GET_ALL_SQL = "select * from customers";
+
 
     @Override
-    public void create(Company entity) {
-
+    public void create(Customer entity) {
         try (Connection connection = ConnectionToDB.getConnection();
              PreparedStatement ps = connection.prepareStatement(CREATE_SQL)) {
             ps.setString(1, entity.getName());
@@ -36,33 +38,31 @@ public class JdbcDAOCompany implements DAOCompany {
     }
 
     @Override
-    public Optional<Company> read(int id) {
-
+    public Optional<Customer> read(int id) {
         try (Connection connection = ConnectionToDB.getConnection();
              PreparedStatement ps = connection.prepareStatement(READ_SQL)) {
             ps.setInt(1, id);
-            Company company = new Company();
+            Customer customer = new Customer();
             try (ResultSet result = ps.executeQuery()) {
                 if (!result.next()) return Optional.empty();
-                company.setId(result.getInt("COMPANY_ID"));
-                company.setName(result.getString("COMPANY_NAME"));
+                customer.setId(result.getInt("CUSTOMER_ID"));
+                customer.setName(result.getString("CUSTOMER_NAME"));
             }
-            return Optional.of(company);
+            return Optional.of(customer);
         } catch (SQLException e) {
             throw new DatabaseException(e);
         }
     }
 
-
     @Override
-    public Optional<Company> update(Company entity) {
-        Optional<Company> company = read(entity.getId());
+    public Optional<Customer> update(Customer entity) {
+        Optional<Customer> customer = read(entity.getId());
         try (Connection connection = ConnectionToDB.getConnection();
              PreparedStatement ps = connection.prepareStatement(UPDATE_SQL)) {
             ps.setString(1, entity.getName());
             ps.setInt(2, entity.getId());
             ps.executeUpdate();
-            return company;
+            return customer;
         } catch (SQLException e) {
             throw new DatabaseException(e);
         }
@@ -81,24 +81,24 @@ public class JdbcDAOCompany implements DAOCompany {
     }
 
     @Override
-    public List<Company> getAll() {
-
+    public List<Customer> getAll() {
         try (Connection connection = ConnectionToDB.getConnection();
              PreparedStatement ps = connection.prepareStatement(GET_ALL_SQL);
              ResultSet result = ps.executeQuery()) {
-            List<Company> companies = new ArrayList<>();
+            List<Customer> customers = new ArrayList<>();
 
             while (result.next()) {
-                Company company = new Company();
-                company.setId(result.getInt("company_id"));
-                company.setName(result.getString("company_name"));
-                companies.add(company);
+                Customer customer = new Customer();
+                customer.setId(result.getInt("customer_id"));
+                customer.setName(result.getString("customer_name"));
+                customers.add(customer);
             }
-            return companies;
+            return customers;
 
         } catch (Exception e) {  //ловлю Exception, а не SQLException потому что .add может кидать много разных Exception,
             // но пользователю это не надо. Ему главное знать, что к БД не удалось обратиться.
             throw new DatabaseException(e);
         }
     }
+
 }
