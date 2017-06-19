@@ -19,7 +19,7 @@ public class JdbcDAOCompany implements DAOCompany {
 
     private static final String CREATE_SQL = "insert into companies(company_name) value(?)";
     private static final String READ_SQL = "select * from companies where company_id=?";
-    private static final String UPDATE_SQL = "update companies set company_name=?, where company_id=?";
+    private static final String UPDATE_SQL = "update companies set company_name=? where company_id=?";
     private static final String DELETE_SQL = "delete from companies where company_id=?";
     private static final String GET_ALL_SQL = "select * from companies";
 
@@ -68,6 +68,11 @@ public class JdbcDAOCompany implements DAOCompany {
         }
     }
 
+    /**
+     * when deleting company delete all company projects (set in DB)
+     * @param id
+     * @return
+     */
     @Override
     public boolean delete(int id) {
         try (Connection connection = ConnectionToDB.getConnection();

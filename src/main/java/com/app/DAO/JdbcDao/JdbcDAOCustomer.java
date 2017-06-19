@@ -21,7 +21,7 @@ public class JdbcDAOCustomer implements DAOCustomer {
 
     private static final String CREATE_SQL = "insert into customers(customer_name) value(?)";
     private static final String READ_SQL = "select * from customers where customer_id=?";
-    private static final String UPDATE_SQL = "update customers set customer_name=?, where customer_id=?";
+    private static final String UPDATE_SQL = "update customers set customer_name=? where customer_id=?";
     private static final String DELETE_SQL = "delete from customers where customer_id=?";
     private static final String GET_ALL_SQL = "select * from customers";
 
@@ -68,6 +68,11 @@ public class JdbcDAOCustomer implements DAOCustomer {
         }
     }
 
+    /**
+     * when deleting set null customer_id (set in DB)
+     * @param id
+     * @return
+     */
     @Override
     public boolean delete(int id) {
         try (Connection connection = ConnectionToDB.getConnection();

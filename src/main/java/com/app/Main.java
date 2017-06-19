@@ -10,6 +10,8 @@ import java.util.*;
  * Created by User on 04.06.2017.
  */
 public class Main {
+    private static int count = 0;
+
     public static void main(String[] args) {
 
         DAODeveloper daoDeveloper = new JdbcDAODeveloper();
@@ -18,66 +20,137 @@ public class Main {
         DAOSkill daoSkill = new JdbcDAOSkill();
         DAOProject daoProject = new JdbcDAOProject();
 
-
-//        List<Integer> skillIdList = Arrays.asList(new Integer[] {1,3,8});
-//
-//        Map<Integer, Integer> projectIDSalary = new HashMap<>();
-//        projectIDSalary.put(1,1267);
-//        projectIDSalary.put(6,1340);
-//
-//        Developer developer = new Developer("Andrey", "Minov");
-//        developer.setSkillIdList(skillIdList);
-//        developer.setProjectIDSalary(projectIDSalary);
-//
-//
-//
-//
-//
-        List<Integer> skillIdList1 = Arrays.asList(new Integer[]{6, 8, 14});
-
-        Map<Integer, Integer> projectIDSalary1 = new HashMap<>();
-        projectIDSalary1.put(3, 155555);
-        projectIDSalary1.put(6, 255555);
-
-        Developer developer1 = new Developer("A", "R");
-        developer1.setSkillIdList(skillIdList1);
-        developer1.setProjectIDSalary(projectIDSalary1);
-        developer1.setId(20);
-//        daoDeveloper.update(developer1);
-        daoDeveloper.delete(38);
-
-
-
+//--------------------------All Entities ------------------------------
+        System.out.println("-----------Developers----------------");
+//        daoDeveloper.getAll().forEach(System.out::println);//переустанавливала idea и почему-то пока не хочет так выводить
         List<Developer> developers = daoDeveloper.getAll();
         for (Developer developer : developers) {
             System.out.println(developer);
         }
 
+        System.out.println("-----------Companies----------------");
         List<Company> companies = daoCompany.getAll();
         for (Company company : companies) {
             System.out.println(company);
         }
 
+        System.out.println("-----------Customers----------------");
         List<Customer> customers = daoCustomer.getAll();
         for (Customer customer : customers) {
             System.out.println(customer);
         }
 
+        System.out.println("-----------Skills----------------");
         List<Skill> skills = daoSkill.getAll();
         for (Skill skill : skills) {
             System.out.println(skill);
         }
 
+        System.out.println("-----------Projects----------------");
         List<Project> projects = daoProject.getAll();
         for (Project project : projects) {
             System.out.println(project);
         }
 
-        //
+
+//        //------------------------Developer-------------------
+//        Developer developer = getDeveloperInstance();
 //        daoDeveloper.create(developer);
-//        daoDeveloper.create(developer1);
+//
+//        Developer developer1 = getDeveloperInstance();
+//        developer1.setId(3);
+//        daoDeveloper.update(developer1);
+//
+//        System.out.println(daoDeveloper.read(3));
+//
+//        daoDeveloper.delete(6);
 
-//        System.out.println(daoDeveloper.read(23));
+        //------------------------Company-------------------
+//        Company company = getCompanyInstance();
+//        daoCompany.create(company);
+//
+//        Company company1 = getCompanyInstance();
+//        company1.setId(7);
+//        daoCompany.update(company1);
+//
+//        System.out.println(daoCompany.read(7));
+//
+//        daoCompany.delete(6);
 
+//        //------------------------Customer-------------------
+//       Customer customer = getCustomerInstance();
+//        daoCustomer.create(customer);
+//
+//        Customer customer1 = getCustomerInstance();
+//        customer1.setId(2);
+//        daoCustomer.update(customer1);
+//
+//        System.out.println(daoCustomer.read(2));
+//
+//        daoCustomer.delete(1);
+
+//
+//        //------------------------Skill-------------------
+//        Skill skill = getSkillInstance();
+//        daoSkill.create(skill);
+//
+//        Skill skill1 = getSkillInstance();
+//        skill1.setId(2);
+//        daoSkill.update(skill1);
+//
+//        System.out.println(daoSkill.read(2));
+//
+//        daoSkill.delete(5);
+//
+//        //------------------------Project-------------------
+//        Project project = getProjectInstance();
+//        daoProject.create(project);
+//
+//        Project project1 = getProjectInstance();
+//        project1.setId(2);
+//        daoProject.update(project1);
+//
+//        System.out.println(daoProject.read(2));
+//
+//        daoProject.delete(5);
+
+
+
+
+
+    }
+
+    static Developer getDeveloperInstance() {
+        List<Integer> skillIdList = Arrays.asList(new Integer[]{1, 3, 8});
+
+        Map<Integer, Integer> projectIDSalary = new HashMap<>();
+        projectIDSalary.put(1, 5267  + count +1);
+        projectIDSalary.put(6, 4340 + count+1);
+
+        Developer developer = new Developer("Andrey" + count, "Minov" + count);
+        developer.setSkillIdList(skillIdList);
+        developer.setProjectIDSalary(projectIDSalary);
+        count++;
+    return developer;
+    }
+
+    static Company getCompanyInstance(){
+        count++;
+        return new Company("company" + count);
+    }
+
+    static Customer getCustomerInstance(){
+        count++;
+        return new Customer("customer" + count);
+    }
+
+    static Skill getSkillInstance(){
+        count++;
+        return new Skill("skill" + count);
+    }
+
+    static Project getProjectInstance(){
+        count++;
+        return new Project("project" + count, 30000 + count, 4, 3);
     }
 }

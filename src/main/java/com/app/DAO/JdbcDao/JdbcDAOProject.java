@@ -50,8 +50,8 @@ public class JdbcDAOProject implements DAOProject {
                 project.setId(result.getInt("PROJECT_ID"));
                 project.setName(result.getString("PROJECT_NAME"));
                 project.setCost(result.getInt("PROJECT_COST"));
-                project.setCost(result.getInt("COMPANY_ID"));
-                project.setCost(result.getInt("CUSTOMER_ID"));
+                project.setCompanyId(result.getInt("COMPANY_ID"));
+                project.setCustomerId(result.getInt("CUSTOMER_ID"));
             }
             return Optional.of(project);
         } catch (SQLException e) {

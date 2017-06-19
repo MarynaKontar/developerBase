@@ -20,7 +20,7 @@ public class JdbcDAOSkill implements DAOSkill {
 
     private static final String CREATE_SQL = "insert into skills(skill_name) value(?)";
     private static final String READ_SQL = "select * from skills where skill_id=?";
-    private static final String UPDATE_SQL = "update skills set skill_name=?, where skill_id=?";
+    private static final String UPDATE_SQL = "update skills set skill_name=? where skill_id=?";
     private static final String DELETE_SQL = "delete from skills where skill_id=?";
     private static final String GET_ALL_SQL = "select * from skills";
 
