@@ -10,7 +10,7 @@ import java.util.*;
  * Created by User on 04.06.2017.
  */
 public class Main {
-    private static int count = 0;
+    private static int count = 1;
 
     public static void main(String[] args) {
 
@@ -21,36 +21,40 @@ public class Main {
         DAOProject daoProject = new JdbcDAOProject();
 
 //--------------------------All Entities ------------------------------
-        System.out.println("-----------Developers----------------");
-//        daoDeveloper.getAll().forEach(System.out::println);//переустанавливала idea и почему-то пока не хочет так выводить
-        List<Developer> developers = daoDeveloper.getAll();
-        for (Developer developer : developers) {
-            System.out.println(developer);
-        }
-
-        System.out.println("-----------Companies----------------");
-        List<Company> companies = daoCompany.getAll();
-        for (Company company : companies) {
-            System.out.println(company);
-        }
-
-        System.out.println("-----------Customers----------------");
-        List<Customer> customers = daoCustomer.getAll();
-        for (Customer customer : customers) {
-            System.out.println(customer);
-        }
-
-        System.out.println("-----------Skills----------------");
-        List<Skill> skills = daoSkill.getAll();
-        for (Skill skill : skills) {
-            System.out.println(skill);
-        }
-
-        System.out.println("-----------Projects----------------");
-        List<Project> projects = daoProject.getAll();
-        for (Project project : projects) {
-            System.out.println(project);
-        }
+//        System.out.println("-----------Developers----------------");
+//        daoDeveloper.getAll().forEach(System.out::println);
+////        List<Developer> developers = daoDeveloper.getAll();
+////        for (Developer developer : developers) {
+////            System.out.println(developer);
+////        }
+//
+//        System.out.println("-----------Companies----------------");
+//        daoCompany.getAll().forEach(System.out::println);
+////        List<Company> companies = daoCompany.getAll();
+////        for (Company company : companies) {
+////            System.out.println(company);
+////        }
+//
+//        System.out.println("-----------Customers----------------");
+//        daoCustomer.getAll().forEach(System.out::println);
+////        List<Customer> customers = daoCustomer.getAll();
+////        for (Customer customer : customers) {
+////            System.out.println(customer);
+////        }
+//
+//        System.out.println("-----------Skills----------------");
+//        daoSkill.getAll().forEach(System.out::println);
+////        List<Skill> skills = daoSkill.getAll();
+////        for (Skill skill : skills) {
+////            System.out.println(skill);
+////        }
+//
+//        System.out.println("-----------Projects----------------");
+//        daoProject.getAll().forEach(System.out::println);
+////        List<Project> projects = daoProject.getAll();
+////        for (Project project : projects) {
+////            System.out.println(project);
+////        }
 
 
 //        //------------------------Developer-------------------
@@ -62,7 +66,7 @@ public class Main {
 //        daoDeveloper.update(developer1);
 //
 //        System.out.println(daoDeveloper.read(3));
-//
+////
 //        daoDeveloper.delete(6);
 
         //------------------------Company-------------------
@@ -127,30 +131,30 @@ public class Main {
         projectIDSalary.put(1, 5267  + count +1);
         projectIDSalary.put(6, 4340 + count+1);
 
-        Developer developer = new Developer("Andrey" + count, "Minov" + count);
+        Developer developer = new Developer("DeveloperName" + count, "DeveloperLastname" + count);
         developer.setSkillIdList(skillIdList);
         developer.setProjectIDSalary(projectIDSalary);
-        count++;
+
     return developer;
     }
 
     static Company getCompanyInstance(){
-        count++;
+
         return new Company("company" + count);
     }
 
     static Customer getCustomerInstance(){
-        count++;
+
         return new Customer("customer" + count);
     }
 
     static Skill getSkillInstance(){
-        count++;
+
         return new Skill("skill" + count);
     }
 
     static Project getProjectInstance(){
-        count++;
+
         return new Project("project" + count, 30000 + count, 4, 3);
     }
 }

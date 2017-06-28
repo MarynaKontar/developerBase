@@ -69,7 +69,9 @@ public class JdbcDAOCompany implements DAOCompany {
     }
 
     /**
+     * There is CASCADE mode in DB on deleting
      * when deleting company delete all company projects (set in DB)
+     *
      * @param id
      * @return
      */

@@ -28,40 +28,50 @@ public class JdbcDAODeveloper implements DAODeveloper {
     public void create(Developer entity) {
 
         try (Connection connection = ConnectionToDB.getConnection()) {
-            connection.setAutoCommit(false);
-//            Savepoint savepoint = null;
-            int id = 0;
-            try (PreparedStatement ps = connection.prepareStatement(CREATE_SQL,
-                    Statement.RETURN_GENERATED_KEYS)) {
+            try {
+                connection.setAutoCommit(false);
 
-                ps.setString(1, entity.getName());
-                ps.setString(2, entity.getLastName());
-//                savepoint = connection.setSavepoint("SavepointCreate");
-                int affectedRows = ps.executeUpdate();
-//                System.out.println("affectedRows = " + affectedRows);
-
-                if (affectedRows == 0) {
-                    throw new SQLException("Creating developer failed, no rows affected.");
-                }
-                try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        id = generatedKeys.getInt(1);
-//                        System.out.println("id = " + id);
-                    }
-                }
-
+                int id = createDeveloperWithoutSkillsAndProjects(entity, connection);
                 addSkillsToDeveloper_skillTable(entity, connection, id);
                 addDevelopersAndProjectsToDeveloper_projectTable(entity, connection, id);
                 connection.commit();
+                connection.setAutoCommit(false);
 
-            } catch (Exception e) {
-
-                connection.rollback();
-                throw e;
+            } catch (Exception e) {//Или  ловить Exception вместо SQLException или вставлять  if (groups != null & !groups.isEmpty()) {} в addUserGroupsToUser_GroupsTable
+                System.out.println("Exception when add user. AutoCommit = " + connection.getAutoCommit());
+                try {
+                    connection.rollback();
+                    connection.setAutoCommit(true);
+                } catch (SQLException e1) {
+                    throw new DatabaseException("Exception when rollback or setAutoCommit. AutoCommit = " + connection.getAutoCommit(), e1);
+                }
+                throw new DatabaseException(e);
             }
         } catch (Exception e) {
             throw new DatabaseException(e);
         }
+    }
+
+    private int createDeveloperWithoutSkillsAndProjects(Developer entity, Connection connection) throws SQLException {
+        int id = 0;
+        try (PreparedStatement ps = connection.prepareStatement(CREATE_SQL,
+                Statement.RETURN_GENERATED_KEYS)) {
+
+            ps.setString(1, entity.getName());
+            ps.setString(2, entity.getLastName());
+            int affectedRows = ps.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating developer failed, no rows affected.");
+            }
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    id = generatedKeys.getInt(1);
+//                        System.out.println("id = " + id);
+                }
+            }
+        }
+        return id;
     }
 
     private void addSkillsToDeveloper_skillTable(Developer entity, Connection connection, int id) throws Exception {
@@ -157,12 +167,15 @@ public class JdbcDAODeveloper implements DAODeveloper {
     public Optional<Developer> update(Developer entity) {
         Optional<Developer> developer = read(entity.getId());
         try (Connection connection = ConnectionToDB.getConnection()) {
-            connection.setAutoCommit(false);
-            try (PreparedStatement ps = connection.prepareStatement(UPDATE_SQL)) {
-                ps.setString(1, entity.getName());
-                ps.setString(2, entity.getLastName());
-                ps.setInt(3, entity.getId());
-                ps.executeUpdate();
+            try {
+                connection.setAutoCommit(false);
+
+                try (PreparedStatement ps = connection.prepareStatement(UPDATE_SQL)) {
+                    ps.setString(1, entity.getName());
+                    ps.setString(2, entity.getLastName());
+                    ps.setInt(3, entity.getId());
+                    ps.executeUpdate();
+                }
 
                 deleteSkills(entity, connection);
                 addSkillsToDeveloper_skillTable(entity, connection, entity.getId());
@@ -171,6 +184,16 @@ public class JdbcDAODeveloper implements DAODeveloper {
                 addDevelopersAndProjectsToDeveloper_projectTable(entity, connection, entity.getId());
 
                 connection.commit();
+                connection.setAutoCommit(true);
+            } catch (Exception e) {
+                System.out.println("Exception when add user. AutoCommit = " + connection.getAutoCommit());
+                try {
+                    connection.rollback();
+                    connection.setAutoCommit(true);
+                } catch (SQLException e1) {
+                    throw new DatabaseException("Exception when rollback or setAutoCommit. AutoCommit = " + connection.getAutoCommit(), e1);
+                }
+                throw new DatabaseException(e);
             }
         } catch (Exception e) {
             throw new DatabaseException(e);
@@ -196,6 +219,7 @@ public class JdbcDAODeveloper implements DAODeveloper {
 
     /**
      * There is CASCADE mode in DB on deleting
+     *
      * @param id
      * @return
      */
