@@ -39,7 +39,7 @@ public class JdbcDAODeveloper implements DAODeveloper {
 //                savepoint = connection.setSavepoint("SavepointCreate");
                 int affectedRows = ps.executeUpdate();
 //                System.out.println("affectedRows = " + affectedRows);
-                connection.commit();
+
                 if (affectedRows == 0) {
                     throw new SQLException("Creating developer failed, no rows affected.");
                 }
@@ -55,7 +55,7 @@ public class JdbcDAODeveloper implements DAODeveloper {
                 connection.commit();
 
             } catch (Exception e) {
-//                connection.rollback();
+
                 connection.rollback();
                 throw e;
             }
