@@ -10,7 +10,7 @@ import java.util.*;
  * Created by User on 04.06.2017.
  */
 public class Main {
-    private static int count = 1;
+    private static int count = 2;
 
     public static void main(String[] args) {
 
@@ -57,16 +57,16 @@ public class Main {
 ////        }
 
 
-//        //------------------------Developer-------------------
+        //------------------------Developer-------------------
 //        Developer developer = getDeveloperInstance();
 //        daoDeveloper.create(developer);
 //
-//        Developer developer1 = getDeveloperInstance();
-//        developer1.setId(3);
-//        daoDeveloper.update(developer1);
+        Developer developer1 = getDeveloperInstance();
+        developer1.setId(4);
+        daoDeveloper.update(developer1);
 //
 //        System.out.println(daoDeveloper.read(3));
-////
+//
 //        daoDeveloper.delete(6);
 
         //------------------------Company-------------------
