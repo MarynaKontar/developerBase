@@ -1,11 +1,20 @@
 package com.app.HibernateEntities;
 
+import javax.persistence.*;
+
 /**
  * Created by User on 04.06.2017.
  */
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "Skill.getAll", query = "select s from Skill s"),
+        @NamedQuery(name = "Skill.countAll", query = "select count(s) from Skill s")
+})
 public class Skill {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
 
     public Skill() {

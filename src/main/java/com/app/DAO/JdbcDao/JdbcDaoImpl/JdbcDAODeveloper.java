@@ -1,7 +1,7 @@
-package com.app.DAO.JdbcDao;
+package com.app.DAO.JdbcDao.JdbcDaoImpl;
 
 import com.app.BackendException.DatabaseException;
-import com.app.DAO.DAODeveloper;
+import com.app.DAO.JdbcDao.DAODeveloper;
 import com.app.Entities.Developer;
 
 import java.sql.*;

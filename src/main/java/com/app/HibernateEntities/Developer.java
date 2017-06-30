@@ -1,21 +1,35 @@
 package com.app.HibernateEntities;
 
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by User on 04.06.2017.
  */
-public class  Developer {
-
+@Entity
+//@Table(name = "developers")
+@NamedQueries({
+        @NamedQuery(name = "Developer.getAll", query = "select d from Developer d"),
+        @NamedQuery(name = "Developer.countAll", query = "select count(d) from Developer d")
+})
+public class Developer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
-    private String lastName;
-//    private List<Skill> skills;
-    private List<Integer> skillIdList;
-    //Map of projects id and developer salaries on these projects
-    private Map<Integer, Integer> projectIDSalary;
 
+    private String name;
+
+    private String lastName;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Skill> skills;
+
+//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    private List<Project> projects = new ArrayList<>();
+
+    @OneToMany(mappedBy = "developer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DeveloperProject> projects = new ArrayList<>();
     public Developer() {
 
     }
@@ -49,31 +63,30 @@ public class  Developer {
         this.lastName = lastName;
     }
 
-    public List<Integer> getSkillIdList() {
-        return skillIdList;
+    public List<Skill> getSkills() {
+        return skills;
     }
 
-    public void setSkillIdList(List<Integer> skillIdList) {
-        this.skillIdList = skillIdList;
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
     }
 
-    public Map<Integer, Integer> getProjectIDSalary() {
-        return projectIDSalary;
+    public List<DeveloperProject> getProjects() {
+        return projects;
     }
 
-    public void setProjectIDSalary(Map<Integer, Integer> projectIDSalary) {
-        this.projectIDSalary = projectIDSalary;
+    public void setProjects(List<DeveloperProject> projects) {
+        this.projects = projects;
     }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Developer{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", lastName='").append(lastName).append('\'');
-        sb.append(", skillIdList=").append(skillIdList);
-        sb.append(", projectIDSalary=").append(projectIDSalary);
-        sb.append('}');
-        return sb.toString();
+        return "Developer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", skills=" + skills +
+                ", projects=" + projects +
+                '}';
     }
 }

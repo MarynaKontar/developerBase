@@ -1,4 +1,4 @@
-package com.app.DAO;
+package com.app.DAO.JdbcDao;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package com.app;
 
-import com.app.DAO.*;
 import com.app.DAO.JdbcDao.*;
+import com.app.DAO.JdbcDao.JdbcDaoImpl.*;
 import com.app.Entities.*;
 
 import java.util.*;
@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * Created by User on 04.06.2017.
  */
-public class Main {
+public class JdbcApplication {
     private static int count = 2;
 
     public static void main(String[] args) {

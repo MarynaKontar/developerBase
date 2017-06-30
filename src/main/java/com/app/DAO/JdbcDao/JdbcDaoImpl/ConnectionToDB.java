@@ -1,4 +1,4 @@
-package com.app.DAO.JdbcDao;
+package com.app.DAO.JdbcDao.JdbcDaoImpl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

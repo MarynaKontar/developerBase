@@ -1,4 +1,4 @@
-package com.app.DAO;
+package com.app.DAO.JdbcDao;
 
 import com.app.Entities.Customer;
 

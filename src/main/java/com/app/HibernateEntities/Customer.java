@@ -1,12 +1,26 @@
 package com.app.HibernateEntities;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by User on 04.06.2017.
  */
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "Customer.getAll", query = "select c from Customer c"),
+        @NamedQuery(name = "Customer.countAll", query = "select count(c) from Customer c")
+})
 public class Customer {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String name;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Project> projects = new HashSet<>();
 
     public Customer() {
     }
@@ -31,12 +45,20 @@ public class Customer {
         this.name = name;
     }
 
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
+    }
+
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Customer{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", projects=" + projects +
+                '}';
     }
 }
