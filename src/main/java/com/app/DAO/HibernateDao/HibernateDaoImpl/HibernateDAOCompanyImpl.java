@@ -7,6 +7,7 @@ import com.app.HibernateEntities.Company;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,7 +45,13 @@ public class HibernateDAOCompanyImpl extends HibernateDAOGeneral<Integer, Compan
 
     @Override
     public List<Company> getAll() {
-        return null;
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("unit1");
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        TypedQuery<Company> typedQuery = em.createNamedQuery("Company.getAll", Company.class);
+        List<Company> companies = typedQuery.getResultList();
+        em.getTransaction().commit();
+        return companies;
     }
 
 }

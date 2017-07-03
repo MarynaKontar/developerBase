@@ -7,6 +7,7 @@ import com.app.HibernateEntities.Project;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,12 @@ public class HibernateDAOProjectImpl extends HibernateDAOGeneral<Integer, Projec
 
     @Override
     public List<Project> getAll() {
-        return null;
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("unit1");
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        TypedQuery<Project> typedQuery = em.createNamedQuery("Project.getAll", Project.class);
+        List<Project> projects = typedQuery.getResultList();
+        em.getTransaction().commit();
+        return projects;
     }
 }

@@ -17,14 +17,15 @@ import java.util.Set;
  */
 public class HibernateDAODeveloperImpl extends HibernateDAOGeneral<Integer, Developer> implements HibernateDAODeveloper {
 
-//    @Override
-//    public void create(Developer entity) {
-//        EntityManagerFactory factory= Persistence.createEntityManagerFactory("unit1");
-//        EntityManager em = factory.createEntityManager();
-//        em.getTransaction().begin();
-//        em.persist(entity);
-//        em.getTransaction().commit();
-//    }
+    @Override
+    public void create(Developer entity) {
+        EntityManagerFactory factory= Persistence.createEntityManagerFactory("unit1");
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(entity);
+
+        em.getTransaction().commit();
+    }
 
     @Override
     public Optional<Developer> read(Integer key) {

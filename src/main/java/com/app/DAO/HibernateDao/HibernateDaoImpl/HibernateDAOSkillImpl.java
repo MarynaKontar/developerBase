@@ -8,6 +8,7 @@ import com.app.HibernateEntities.Skill;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,11 +32,18 @@ public class HibernateDAOSkillImpl extends HibernateDAOGeneral<Integer, Skill> i
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         em.remove(em.getReference(Skill.class, entity.getId()));
+
         em.getTransaction().commit();
     }
 
     @Override
     public List<Skill> getAll() {
-        return null;
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("unit1");
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        TypedQuery<Skill> typedQuery = em.createNamedQuery("Skill.getAll", Skill.class);
+        List<Skill> skills = typedQuery.getResultList();
+        em.getTransaction().commit();
+        return skills;
     }
 }

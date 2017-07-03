@@ -8,6 +8,7 @@ import com.app.HibernateEntities.Customer;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,12 @@ public class HibernateDAOCustomerImpl extends HibernateDAOGeneral<Integer, Custo
 
     @Override
     public List<Customer> getAll() {
-        return null;
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("unit1");
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        TypedQuery<Customer> typedQuery = em.createNamedQuery("Customer.getAll",Customer.class);
+        List<Customer> customers = typedQuery.getResultList();
+        em.getTransaction().commit();
+        return customers;
     }
 }

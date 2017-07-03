@@ -8,7 +8,7 @@ import java.util.List;
  * Created by User on 04.06.2017.
  */
 @Entity
-//@Table(name = "developers")
+//@Table(name = "developer")
 @NamedQueries({
         @NamedQuery(name = "Developer.getAll", query = "select d from Developer d"),
         @NamedQuery(name = "Developer.countAll", query = "select count(d) from Developer d")
@@ -22,6 +22,7 @@ public class Developer {
 
     private String lastName;
 
+//    @ManyToMany(cascade = {CascadeType.ALL})
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Skill> skills;
 
@@ -30,6 +31,7 @@ public class Developer {
 
     @OneToMany(mappedBy = "developer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DeveloperProject> projects = new ArrayList<>();
+
     public Developer() {
 
     }

@@ -1,6 +1,8 @@
 package com.app.HibernateEntities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by User on 04.06.2017.
@@ -17,10 +19,18 @@ public class Skill {
 
     private String name;
 
+    @ManyToMany(mappedBy = "skills")
+    private List<Developer> developers = new ArrayList<>();
+
     public Skill() {
     }
 
     public Skill(String name) {
+        this.name = name;
+    }
+
+    public Skill(int id, String name) {
+        this.id = id ;
         this.name = name;
     }
 
@@ -40,12 +50,13 @@ public class Skill {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Skill{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append('}');
-        return sb.toString();
+    public List<Developer> getDevelopers() {
+        return developers;
     }
+
+    public void setDevelopers(List<Developer> developers) {
+        this.developers = developers;
+    }
+
+
 }
