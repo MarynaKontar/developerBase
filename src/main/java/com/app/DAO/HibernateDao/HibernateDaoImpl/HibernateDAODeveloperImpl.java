@@ -1,59 +1,61 @@
 package com.app.DAO.HibernateDao.HibernateDaoImpl;
 
+import com.app.BackendException.DatabaseException;
 import com.app.DAO.HibernateDao.HibernateDAODeveloper;
 import com.app.DAO.HibernateDao.HibernateDAOGeneral;
 import com.app.HibernateEntities.Developer;
+import com.app.Utils.SessionFactoryDB;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 /**
- * Created by User on 22.06.2017.
+ * Created by User on 05.07.2017.
  */
 public class HibernateDAODeveloperImpl extends HibernateDAOGeneral<Integer, Developer> implements HibernateDAODeveloper {
 
     @Override
-    public void create(Developer entity) {
-        EntityManagerFactory factory= Persistence.createEntityManagerFactory("unit1");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        em.merge(entity);
-
-        em.getTransaction().commit();
-    }
-
-    @Override
     public Optional<Developer> read(Integer key) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("unit1");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        Developer developer = em.find(Developer.class, key);
-        em.getTransaction().commit();
-        return Optional.ofNullable(developer);
-    }
-
-    @Override
-    public void delete(Developer entity) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("unit1");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        em.remove(em.getReference(Developer.class, entity.getId()));
-        em.getTransaction().commit();
+        Transaction transaction = null;
+        Developer developer = null;
+        try (Session session = SessionFactoryDB.getSession()) {
+            transaction = session.beginTransaction();
+            developer = session.find(Developer.class, key);//TODO что лучше find или load?
+            transaction.commit();
+        } catch (RuntimeException e) {
+            if (transaction != null) {
+                try {
+                    transaction.rollback();
+                } catch (RuntimeException e1) {
+                    throw new DatabaseException(e1);
+                }
+            }
+            throw new DatabaseException(e);
+        }
+        return Optional.of(developer);
     }
 
     @Override
     public List<Developer> getAll() {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("unit1");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        TypedQuery<Developer> typedQuery = em.createNamedQuery("Developer.getAll", Developer.class);
-        List<Developer> developers = typedQuery.getResultList();
-        em.getTransaction().commit();
-    return developers;
+        Transaction transaction = null;
+        List<Developer> developers = new ArrayList<>();
+        try (Session session = SessionFactoryDB.getSession()) {
+            transaction = session.beginTransaction();
+            developers = (List<Developer>)session.createQuery("FROM Developer").list(); //TODO как тут лучше поступить с "сырыми" данными?
+            transaction.commit();
+        } catch (RuntimeException e) {
+            if (transaction != null) {
+                try {
+                    transaction.rollback();
+                } catch (RuntimeException e1) {
+                    throw new DatabaseException(e1);
+                }
+            }
+            throw new DatabaseException(e);
+        }
+        return developers;
     }
 }

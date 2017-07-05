@@ -1,36 +1,33 @@
 package com.app;
 
-import com.app.DAO.HibernateDao.*;
-import com.app.DAO.HibernateDao.HibernateDaoImpl.*;
+import com.app.DAO.JpaDao.*;
+import com.app.DAO.JpaDao.JpaDaoImpl.*;
 import com.app.HibernateEntities.*;
+import com.app.Utils.EMFactory;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by User on 30.06.2017.
  */
-public class HibernateApplication {
+public class JpaApplication {
     private static int count = 1;
 
     public static void main(String[] args) {
 
-        HibernateDAODeveloper daoDeveloper = new HibernateDAODeveloperImpl();
-        HibernateDAOCompany daoCompany = new HibernateDAOCompanyImpl();
-        HibernateDAOCustomer daoCustomer = new HibernateDAOCustomerImpl();
-        HibernateDAOSkill daoSkill = new HibernateDAOSkillImpl();
-        HibernateDAOProject daoProject = new HibernateDAOProjectImpl();
+        JpaDAODeveloper daoDeveloper = new JPADAODeveloperImpl();
+        JpaDAOCompany daoCompany = new JPADAOCompanyImpl();
+        JpaDAOCustomer daoCustomer = new JPADAOCustomerImpl();
+        JpaDAOSkill daoSkill = new JPADAOSkillImpl();
+        JpaDAOProject daoProject = new JPADAOProjectImpl();
 
 
 //--------------------------All Entities ------------------------------
-//        System.out.println("-----------Developers----------------");
-//        daoDeveloper.getAll().forEach(System.out::println);
-//        System.out.println("-----------Developers----------------");
+        System.out.println("-----------Developers----------------");
+        daoDeveloper.getAll().forEach(System.out::println);
+        System.out.println("-----------Developers----------------");
 //
 //        System.out.println("-----------Companies----------------");
 //        daoCompany.getAll().forEach(System.out::println);
@@ -127,9 +124,9 @@ public class HibernateApplication {
 
 //
 //        //------------------------Project-------------------
-        Project project = getProjectInstance();
-        daoProject.create(project);
-        project.addDeveloperWithSalary(daoDeveloper.read(2).get(),2558);
+//        Project project = getProjectInstance();
+//        daoProject.create(project);
+//        project.addDeveloperWithSalary(daoDeveloper.read(2).get(),2558);
 
 
 //        Project project1 = getProjectInstance();
@@ -140,12 +137,13 @@ public class HibernateApplication {
 //
 //        daoProject.delete(5);
 
-
+        EntityManagerFactory entityManagerFactory = EMFactory.getEntityManagerFactory();
+        entityManagerFactory.close();
     }
 
     static Developer getDeveloperInstance() {
         count = count + 1;
-        HibernateDAOSkill daoSkill = new HibernateDAOSkillImpl();
+        JpaDAOSkill daoSkill = new JPADAOSkillImpl();
         List<Skill> skills = new ArrayList<>();
         skills.add(daoSkill.read(1).get());
         skills.add(daoSkill.read(3).get());

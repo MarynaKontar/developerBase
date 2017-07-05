@@ -6,7 +6,7 @@ import java.util.Optional;
 /**
  * Created by User on 04.06.2017.
  */
-public interface  DAO<T> {
+public interface JdbcDAO<T> {
 
     void create(T entity);
 

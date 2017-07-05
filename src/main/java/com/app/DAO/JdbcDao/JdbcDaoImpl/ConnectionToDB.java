@@ -25,6 +25,8 @@ public class ConnectionToDB {
     private static final String password = "123581321lL";
     private static final String driver = "com.mysql.jdbc.Driver";
 
+
+ //загрузка драйвера - на данній момент deprecated. Подгружается автоматически при вызове getConnection
     //        static {
 //        try {
 //            LOGGER.info("Loading jdbc driver: " + driver);

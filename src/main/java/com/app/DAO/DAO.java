@@ -1,4 +1,4 @@
-package com.app.DAO.HibernateDao;
+package com.app.DAO;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.Optional;
 /**
  * Created by User on 30.06.2017.
  */
-public interface HibernateDAO<K extends Serializable, T> {
+public interface DAO<K extends Serializable, T> {
 
     void create(T entity);
 
