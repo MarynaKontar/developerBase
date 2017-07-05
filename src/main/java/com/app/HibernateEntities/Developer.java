@@ -22,14 +22,13 @@ public class Developer {
 
     private String lastName;
 
-//    @ManyToMany(cascade = {CascadeType.ALL})
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.REFRESH})// если оставить LAZY, то не подтянет skills и, например при выводе  daoDeveloper.getAll().forEach(System.out::println) будет ошибка в toString() (skills)
     private List<Skill> skills;
 
 //    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 //    private List<Project> projects = new ArrayList<>();
 
-    @OneToMany(mappedBy = "developer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "developer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<DeveloperProject> projects = new ArrayList<>();
 
     public Developer() {
@@ -88,7 +87,7 @@ public class Developer {
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", skills=" + skills +
-                ", projects=" + projects +
+//                ", projects=" + projects +
                 '}';
     }
 }

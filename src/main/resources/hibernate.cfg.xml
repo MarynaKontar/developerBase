@@ -10,16 +10,16 @@
             &amp;useLegacyDatetimeCode=false
             &amp;serverTimezone=UTC</property>
 
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 
         <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
 
         <property name="connection.username">root</property>
         <property name="connection.password">123581321lL</property>
         <!-- DB schema will be updated if needed -->
-        <!--<property name="hbm2ddl.auto">validate</property>-->
+      <!--  <property name="hbm2ddl.auto">update</property>-->
         <property name="show_sql">false</property>
-        <property name="format_sql">false</property>
+        <!--<property name="format_sql">false</property>-->
 
         <mapping class="com.app.HibernateEntities.Developer"></mapping>
         <mapping class="com.app.HibernateEntities.Skill"></mapping>

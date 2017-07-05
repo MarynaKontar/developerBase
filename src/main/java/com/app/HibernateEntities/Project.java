@@ -113,7 +113,7 @@ public class Project {
                 ", cost=" + cost +
                 ", company=" + company +
                 ", customer=" + customer +
-                ", developers=" + developers +
+//                ", developers=" + developers +
                 '}';
     }
 }

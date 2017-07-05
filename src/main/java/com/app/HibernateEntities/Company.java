@@ -19,7 +19,7 @@ public class Company {
 
     private String name;
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)//TODO нельзя FetchType.EAGER иначе циклическая ссылка company-project-company...
     Set<Project> projects = new HashSet<>();
 
     public Company() {
@@ -60,7 +60,7 @@ public class Company {
         return "Company{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", projects=" + projects +
+//                ", projects=" + projects +
                 '}';
     }
 }

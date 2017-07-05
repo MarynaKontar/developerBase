@@ -20,7 +20,6 @@ public class JPADAODeveloperImpl extends JPADAOGeneral<Integer, Developer> imple
         EntityManager em = EMFactory.getEntityManager();
         em.getTransaction().begin();
         em.merge(entity);
-
         em.getTransaction().commit();
         em.close();
     }

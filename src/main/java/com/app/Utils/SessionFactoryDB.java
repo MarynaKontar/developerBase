@@ -17,7 +17,7 @@ public class SessionFactoryDB {
         return sessionFactory.openSession();
     }
 
-    public static org.hibernate.SessionFactory getSessionFactory() {
+    public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 }
