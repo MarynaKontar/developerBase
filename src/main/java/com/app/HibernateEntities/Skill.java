@@ -19,8 +19,8 @@ public class Skill {
 
     private String name;
 
-//    @ManyToMany(mappedBy = "skills", cascade = {CascadeType.REFRESH})
-//    private List<Developer> developers = new ArrayList<>();
+    @ManyToMany(mappedBy = "skills")
+    private List<Developer> developers = new ArrayList<>();
 
     public Skill() {
     }
@@ -50,13 +50,13 @@ public class Skill {
         this.name = name;
     }
 
-//    public List<Developer> getDevelopers() {
-//        return developers;
-//    }
-//
-//    public void setDevelopers(List<Developer> developers) {
-//        this.developers = developers;
-//    }
+    public List<Developer> getDevelopers() {
+        return developers;
+    }
+
+    public void setDevelopers(List<Developer> developers) {
+        this.developers = developers;
+    }
 
     @Override
     public String toString() {

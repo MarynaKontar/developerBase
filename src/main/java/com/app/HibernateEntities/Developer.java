@@ -28,7 +28,7 @@ public class Developer {
 //    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 //    private List<Project> projects = new ArrayList<>();
 
-    @OneToMany(mappedBy = "developer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "developer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DeveloperProject> projects = new ArrayList<>();
 
     public Developer() {
@@ -80,13 +80,24 @@ public class Developer {
         this.projects = projects;
     }
 
+
+    public void addSkill(Skill skill) {
+        skills.add( skill );
+        skill.getDevelopers().add( this );
+    }
+
+    public void removeSkill(Skill skill) {
+        skills.remove(skill );
+        skill.getDevelopers().remove( this );
+    }
+
     @Override
     public String toString() {
         return "Developer{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", skills=" + skills +
+//                ", skills=" + skills +
 //                ", projects=" + projects +
                 '}';
     }

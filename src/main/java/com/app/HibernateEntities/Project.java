@@ -94,7 +94,9 @@ public class Project {
     public void addDeveloperWithSalary(Developer developer, int salary) {
         DeveloperProject developerProject = new DeveloperProject(developer, this, salary);
         developers.add(developerProject);
-        developer.getProjects().add(developerProject);
+        developer
+                .getProjects()
+                .add(developerProject);
     }
 
     public void removeDeveloper(Developer developer){
