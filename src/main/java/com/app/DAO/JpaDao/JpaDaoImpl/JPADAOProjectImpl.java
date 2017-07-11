@@ -18,7 +18,7 @@ public class JPADAOProjectImpl extends JPADAOGeneral<Integer, Project> implement
     public Optional<Project> read(Integer key) {
         EntityManager em = EMFactory.getEntityManager();
         em.getTransaction().begin();
-        Project entity = em.find(Project.class, key);
+        Project entity = em.getReference(Project.class, key);
         em.getTransaction().commit();
         return Optional.ofNullable(entity);
     }

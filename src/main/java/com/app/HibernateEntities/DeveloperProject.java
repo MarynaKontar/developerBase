@@ -57,6 +57,26 @@ public class DeveloperProject implements Serializable{
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DeveloperProject that = (DeveloperProject) o;
+
+        if (salary != that.salary) return false;
+        if (!developer.equals(that.developer)) return false;
+        return project.equals(that.project);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = developer.hashCode();
+        result = 31 * result + project.hashCode();
+        result = 31 * result + salary;
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "DeveloperProject{" +
                 "developer=" + developer +

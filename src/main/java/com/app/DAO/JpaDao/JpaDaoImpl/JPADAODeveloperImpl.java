@@ -21,14 +21,14 @@ public class JPADAODeveloperImpl extends JPADAOGeneral<Integer, Developer> imple
         em.getTransaction().begin();
         em.merge(entity);
         em.getTransaction().commit();
-        em.close();
+//        em.close();
     }
 
     @Override
     public Optional<Developer> read(Integer key) {
         EntityManager em = EMFactory.getEntityManager();
         em.getTransaction().begin();
-        Developer developer = em.find(Developer.class, key);
+        Developer developer = em.getReference(Developer.class, key);
         em.getTransaction().commit();
         return Optional.ofNullable(developer);
     }

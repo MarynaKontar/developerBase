@@ -16,18 +16,18 @@ public class JpaApplication {
     private static int count = 1;
 
     public static void main(String[] args) {
-
-        JpaDAODeveloper daoDeveloper = new JPADAODeveloperImpl();
-        JpaDAOCompany daoCompany = new JPADAOCompanyImpl();
-        JpaDAOCustomer daoCustomer = new JPADAOCustomerImpl();
-        JpaDAOSkill daoSkill = new JPADAOSkillImpl();
-        JpaDAOProject daoProject = new JPADAOProjectImpl();
+        try {
+            JpaDAODeveloper daoDeveloper = new JPADAODeveloperImpl();
+            JpaDAOCompany daoCompany = new JPADAOCompanyImpl();
+            JpaDAOCustomer daoCustomer = new JPADAOCustomerImpl();
+            JpaDAOSkill daoSkill = new JPADAOSkillImpl();
+            JpaDAOProject daoProject = new JPADAOProjectImpl();
 
 
 //--------------------------All Entities ------------------------------
-        System.out.println("-----------Developers----------------");
-        daoDeveloper.getAll().forEach(System.out::println);
-        System.out.println("-----------Developers----------------");
+//        System.out.println("-----------Developers----------------");
+//        daoDeveloper.getAll().forEach(System.out::println);
+//        System.out.println("-----------Developers----------------");
 //
 //        System.out.println("-----------Companies----------------");
 //        daoCompany.getAll().forEach(System.out::println);
@@ -48,97 +48,125 @@ public class JpaApplication {
 
 
 //        //------------------------Skill-------------------
-//        Skill skill1 = getSkillInstance();
-//        daoSkill.create(skill1);
-//        Skill skill2 = getSkillInstance();
-//        daoSkill.create(skill2);
-//        Skill skill3 = getSkillInstance();
-//        daoSkill.create(skill3);
-//        Skill skill4 = getSkillInstance();
-//        daoSkill.create(skill4);
-//        Skill skill5 = getSkillInstance();
-//        daoSkill.create(skill5);
-//        Skill skill6 = getSkillInstance();
-//        daoSkill.create(skill6);
+            Skill skill1 = getSkillInstance();
+            daoSkill.create(skill1);
+            Skill skill2 = getSkillInstance();
+            daoSkill.create(skill2);
+            Skill skill3 = getSkillInstance();
+            daoSkill.create(skill3);
+            Skill skill4 = getSkillInstance();
+            daoSkill.create(skill4);
+            Skill skill5 = getSkillInstance();
+            daoSkill.create(skill5);
+            Skill skill6 = getSkillInstance();
+            daoSkill.create(skill6);
 
-//        Skill skill7 = getSkillInstance();
-//        skill7.setId(3);
-//        daoSkill.update(skill7);
-//        System.out.println(daoSkill.read(2));
+            Skill skill7 = getSkillInstance();
+            skill7.setId(3);
+            daoSkill.update(skill7);
+            System.out.println(daoSkill.read(2));
 
-//        daoSkill.delete(daoSkill.read(6).get());
-//        daoSkill.delete(daoSkill.read(5).get());
+            daoSkill.delete(daoSkill.read(6).get());
 
-//        daoSkill.delete(new Skill(5, "skill5"));//TODO не удаляет каскадом
+            //------------------------Developer-------------------
+            Developer developer1 = getDeveloperInstance();
+            daoDeveloper.create(developer1);
+            Developer developer2 = getDeveloperInstance();
+            daoDeveloper.create(developer2);
 
-        //------------------------Developer-------------------
-//        Developer developer1 = getDeveloperInstance();
-//        daoDeveloper.create(developer1);
-//        Developer developer2 = getDeveloperInstance();
-//        daoDeveloper.create(developer2);
-//        System.out.println("-----------Developers----------------");
-//        daoDeveloper.getAll().forEach(System.out::println);
-//        System.out.println("-----------Developers----------------");
-//
-//    Developer developer1 = getDeveloperInstance();
-//        developer1.setId(4);
-//        daoDeveloper.update(developer1);
-//
-//        System.out.println(daoDeveloper.read(3));
-//
-//        Developer developer = new Developer("DeveloperName1", "DeveloperLastname1");
-//        developer.setId(5);
-//        daoDeveloper.delete(developer);
+            Developer developer3 = getDeveloperInstance();
+            daoDeveloper.create(developer3);
+            Developer developer4 = getDeveloperInstance();
+            daoDeveloper.create(developer4);
+            Developer developer5 = getDeveloperInstance();
+            daoDeveloper.create(developer5);
 
-        //------------------------Company-------------------
-//        Company company1 = getCompanyInstance();
-//        daoCompany.create(company1);
-//        Company company2 = getCompanyInstance();
-//        daoCompany.create(company2);
-//        Company company3 = getCompanyInstance();
-//        daoCompany.create(company3);
-        //
-//        Company company1 = getCompanyInstance();
-//        company1.setId(7);
-//        daoCompany.update(company1);
-//
-//        System.out.println(daoCompany.read(7));
-//
-//        daoCompany.delete(6);
+            System.out.println("-----------Developers----------------");
+            daoDeveloper.getAll().forEach(System.out::println);
+            System.out.println("-----------Developers----------------");
+
+            Developer developer6 = getDeveloperInstance();
+            developer6.setId(4);
+            daoDeveloper.update(developer6);
+
+            System.out.println(daoDeveloper.read(3));
+
+            Developer developer = new Developer("DeveloperName1", "DeveloperLastname1");
+            developer.setId(5);
+            daoDeveloper.delete(developer);
+
+//        daoSkill.delete(new Skill(5, "skill5"));
+            //------------------------Company-------------------
+            Company company1 = getCompanyInstance();
+            daoCompany.create(company1);
+            Company company2 = getCompanyInstance();
+            daoCompany.create(company2);
+            Company company3 = getCompanyInstance();
+            daoCompany.create(company3);
+
+            Company company4 = getCompanyInstance();
+            company4.setId(2);
+            daoCompany.update(company4);
+
+            System.out.println(daoCompany.read(2));
+
+            daoCompany.delete(company4);
 
 //        //------------------------Customer-------------------
-//        Customer customer1 = getCustomerInstance();
-//        daoCustomer.create(customer1);
-//Customer customer2 = getCustomerInstance();
-//        daoCustomer.create(customer2);
-//Customer customer3 = getCustomerInstance();
-//        daoCustomer.create(customer3);
-//
-//        Customer customer1 = getCustomerInstance();
-//        customer1.setId(2);
-//        daoCustomer.update(customer1);
-//
-//        System.out.println(daoCustomer.read(2));
-//
-//        daoCustomer.delete(1);
+            Customer customer1 = getCustomerInstance();
+            daoCustomer.create(customer1);
+            Customer customer2 = getCustomerInstance();
+            daoCustomer.create(customer2);
+            Customer customer3 = getCustomerInstance();
+            daoCustomer.create(customer3);
+
+            Customer customer4 = getCustomerInstance();
+            customer4.setId(2);
+            daoCustomer.update(customer4);
+
+            System.out.println(daoCustomer.read(2));
+
+            Customer customer5 = getCustomerInstance();
+            customer5.setId(1);
+            daoCustomer.delete(customer5);
 
 //
 //        //------------------------Project-------------------
-//        Project project = getProjectInstance();
-//        daoProject.create(project);
-//        project.addDeveloperWithSalary(daoDeveloper.read(2).get(),2558);
+            Project project1 = getProjectInstance();
+            daoProject.create(project1);
+            Project project2 = getProjectInstance();
+            daoProject.create(project2);
+            Project project3 = getProjectInstance();
+            daoProject.create(project3);
+            Project project4 = getProjectInstance();
+            daoProject.create(project4);
 
+//        Project project5 = daoProject.read(1).get(); //TODO НЕ СОЗДАЕТ!!!
+//        project5
+//                .addDeveloperWithSalary(
+//                        daoDeveloper.read(2).get(), 2558);
+//
+//
+//            project2.addDeveloperWithSalary(daoDeveloper.read(2).get(),3000);
 
-//        Project project1 = getProjectInstance();
-//        project1.setId(2);
-//        daoProject.update(project1);
+//
+//            project3.addDeveloperWithSalary(daoDeveloper.read(3).get(),4000);
+
+//            project4.addDeveloperWithSalary(daoDeveloper.read(4).get(),2000);
+
+//        Project project5 = getProjectInstance();
+//        project5.setId(2);
+//        daoProject.update(project5);
 //
 //        System.out.println(daoProject.read(2));
 //
-//        daoProject.delete(5);
 
-        EntityManagerFactory entityManagerFactory = EMFactory.getEntityManagerFactory();
-        entityManagerFactory.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            EntityManagerFactory entityManagerFactory = EMFactory.getEntityManagerFactory();
+            entityManagerFactory.close();
+        }
     }
 
     static Developer getDeveloperInstance() {
@@ -178,12 +206,12 @@ public class JpaApplication {
 
     static Project getProjectInstance() {
         count = count + 1;
-        Company company = new Company("company2");
-        company.setId(5);
-        Customer customer = new Customer("customer6");
-        customer.setId(6);
+        Company company = new Company("company1");
+        company.setId(1);
+        Customer customer = new Customer("customer2");
+        customer.setId(2);
 
-       return new Project("project"+count, 30000+count, company, customer);
+        return new Project("project" + count, 30000 + count, company, customer);
     }
 }
 

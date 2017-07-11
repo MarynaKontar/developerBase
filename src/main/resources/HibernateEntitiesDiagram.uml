@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="173.0" y="489.0">com.app.HibernateEntities.Project</node>
+    <node x="37.708333333333314" y="0.0">com.app.HibernateEntities.Skill</node>
+    <node x="237.0" y="334.0">com.app.HibernateEntities.Customer</node>
+    <node x="20.5" y="145.0">com.app.HibernateEntities.Developer</node>
+    <node x="0.0" y="334.0">com.app.HibernateEntities.DeveloperProject</node>
+    <node x="393.0" y="334.0">com.app.HibernateEntities.Company</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Group" zoom="1.0" x="183.5" y="319.0" />
+  <SelectedNodes>
+    <node>com.app.HibernateEntities.Customer</node>
+    <node>com.app.HibernateEntities.Developer</node>
+    <node>com.app.HibernateEntities.Project</node>
+    <node>com.app.HibernateEntities.Skill</node>
+    <node>com.app.HibernateEntities.DeveloperProject</node>
+    <node>com.app.HibernateEntities.Company</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,6 +1,7 @@
 package com.app.HibernateEntities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
         @NamedQuery(name = "Developer.getAll", query = "select d from Developer d"),
         @NamedQuery(name = "Developer.countAll", query = "select count(d) from Developer d")
 })
-public class Developer {
+public class Developer implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

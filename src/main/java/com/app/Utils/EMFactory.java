@@ -9,7 +9,8 @@ import javax.persistence.Persistence;
  */
 public class EMFactory {
 
-    private  static EntityManagerFactory factory= Persistence.createEntityManagerFactory("unit1");
+    private  static EntityManagerFactory factory= Persistence
+            .createEntityManagerFactory("unit1");
 
 
     private EMFactory() {

@@ -24,7 +24,7 @@ public class HibernateDAOProjectImpl extends HibernateDAOGeneral<Integer, Projec
         Project project = null;
         try (Session session = SessionFactoryDB.getSession()) {
             transaction = session.beginTransaction();
-            project = session.load(Project.class, key);//TODO что лучше find или load?
+            project = session.get(Project.class, key);//TODO что лучше find или load?
             transaction.commit();
         } catch (RuntimeException e) {
             if (transaction != null) {

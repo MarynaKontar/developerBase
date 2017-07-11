@@ -1,6 +1,7 @@
 package com.app.HibernateEntities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
         @NamedQuery(name = "Project.getAll", query = "select p from com.app.HibernateEntities.Project p"),
         @NamedQuery(name = "Project.countAll", query = "select count(p) from Project p")
 })
-public class Project {
+public class Project  implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
