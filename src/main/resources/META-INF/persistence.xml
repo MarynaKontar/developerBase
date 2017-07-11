@@ -33,7 +33,7 @@
             <!-- <property name="hibernate.hbm2ddl.auto"
                        value="update" />-->
              <!--<property name="javax.persistence.schema-generation.database.action" value="update"/>-->
-            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <property name="javax.persistence.schema-generation.database.action" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>

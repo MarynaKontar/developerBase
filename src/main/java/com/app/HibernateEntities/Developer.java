@@ -102,4 +102,8 @@ public class Developer implements Serializable{
 //                ", projects=" + projects +
                 '}';
     }
+
+//    public String toStringProjects() {
+//        return "projects=" + projects;
+//    }
 }

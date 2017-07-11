@@ -24,7 +24,7 @@ public class HibernateDAODeveloperImpl extends HibernateDAOGeneral<Integer, Deve
         Developer developer = null;
         try (Session session = SessionFactoryDB.getSession()) {
             transaction = session.beginTransaction();
-            developer = session.get(Developer.class, key);//TODO что лучше find или load? Load  не делает select, а "на слово" верит, что такой developer есть в БД
+            developer = session.find(Developer.class, key);//TODO что лучше find или load? Load  не делает select, а "на слово" верит, что такой developer есть в БД
             transaction.commit();
         } catch (RuntimeException e) {
             if (transaction != null) {

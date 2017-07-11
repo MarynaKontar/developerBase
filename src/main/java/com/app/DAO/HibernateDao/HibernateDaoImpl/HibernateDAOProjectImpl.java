@@ -3,6 +3,7 @@ package com.app.DAO.HibernateDao.HibernateDaoImpl;
 import com.app.BackendException.DatabaseException;
 import com.app.DAO.HibernateDao.HibernateDAOGeneral;
 import com.app.DAO.HibernateDao.HibernateDAOProject;
+import com.app.HibernateEntities.Developer;
 import com.app.HibernateEntities.Project;
 import com.app.Utils.SessionFactoryDB;
 import org.hibernate.Session;
@@ -45,7 +46,7 @@ public class HibernateDAOProjectImpl extends HibernateDAOGeneral<Integer, Projec
         List<Project> projects = new ArrayList<>();
         try (Session session = SessionFactoryDB.getSession()) {
             transaction = session.beginTransaction();
-            projects = (List<Project>)session.createQuery("FROM Project").list(); //TODO как тут лучше поступить с "сырыми" данными?
+            projects = (List<Project>) session.createQuery("FROM Project").list(); //TODO как тут лучше поступить с "сырыми" данными?
             transaction.commit();
         } catch (RuntimeException e) {
             if (transaction != null) {
@@ -58,5 +59,49 @@ public class HibernateDAOProjectImpl extends HibernateDAOGeneral<Integer, Projec
             throw new DatabaseException(e);
         }
         return projects;
+    }
+
+    @Override
+    public void addDeveloperToProject(Integer developerId, int salary, Integer projectId) {
+        Transaction transaction = null;
+
+        try (Session session = SessionFactoryDB.getSession()) {
+            transaction = session.beginTransaction();
+            Project project = session.getReference(Project.class, projectId);
+            Developer developer = session.getReference(Developer.class, developerId);
+            project.addDeveloperWithSalary(developer, salary);
+            transaction.commit();
+        } catch (RuntimeException e) {
+            if (transaction != null) {
+                try {
+                    transaction.rollback();
+                } catch (RuntimeException e1) {
+                    throw new DatabaseException(e1);
+                }
+            }
+            throw new DatabaseException(e);
+        }
+    }
+
+    @Override
+    public void addDeveloperAndProject(Project project,Developer developer, int salary) {
+        Transaction transaction = null;
+        try (Session session = SessionFactoryDB.getSession()) {
+            transaction = session.beginTransaction();
+            session.save(developer);
+            session.save(project);
+            project.addDeveloperWithSalary(developer, salary);
+            transaction.commit();
+        } catch (RuntimeException e) {
+            if (transaction != null) {
+                try {
+                    transaction.rollback();
+                } catch (RuntimeException e1) {
+                    throw new DatabaseException(e1);
+                }
+            }
+            throw new DatabaseException(e);
+        }
+
     }
 }
