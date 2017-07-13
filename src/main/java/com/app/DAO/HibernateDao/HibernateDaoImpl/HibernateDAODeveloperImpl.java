@@ -24,7 +24,7 @@ public class HibernateDAODeveloperImpl extends HibernateDAOGeneral<Integer, Deve
         Developer developer = null;
         try (Session session = SessionFactoryDB.getSession()) {
             transaction = session.beginTransaction();
-            developer = session.find(Developer.class, key);//TODO что лучше find или load? Load  не делает select, а "на слово" верит, что такой developer есть в БД
+            developer = session.getReference(Developer.class, key);// Load  не делает select, а "на слово" верит, что такой developer есть в БД
             transaction.commit();
         } catch (RuntimeException e) {
             if (transaction != null) {
@@ -45,7 +45,7 @@ public class HibernateDAODeveloperImpl extends HibernateDAOGeneral<Integer, Deve
         List<Developer> developers = new ArrayList<>();
         try (Session session = SessionFactoryDB.getSession()) {
             transaction = session.beginTransaction();
-            developers = (List<Developer>) session.createQuery("FROM Developer").list(); //TODO как тут лучше поступить с "сырыми" данными?
+            developers = (List<Developer>) session.createQuery("FROM Developer").list(); //TODO 5. как тут лучше поступить с "сырыми" данными?
             transaction.commit();
         } catch (RuntimeException e) {
             if (transaction != null) {
@@ -83,4 +83,25 @@ public class HibernateDAODeveloperImpl extends HibernateDAOGeneral<Integer, Deve
             throw new DatabaseException(e);
         }
     }
+
+    @Override
+    public void deleteById(Integer id) {
+        Transaction transaction = null;
+        try (Session session = SessionFactoryDB.getSession()) {
+            transaction = session.beginTransaction();
+            Developer developer = session.getReference(Developer.class, id);
+            session.delete(developer);
+            transaction.commit();
+        } catch (RuntimeException e) {
+            if (transaction != null) {
+                try {
+                    transaction.rollback();
+                } catch (RuntimeException e1) {
+                    throw new DatabaseException(e1);
+                }
+            }
+            throw new DatabaseException(e);
+        }
+    }
+
 }

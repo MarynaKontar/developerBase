@@ -23,7 +23,7 @@ public class HibernateDAOCustomerImpl extends HibernateDAOGeneral<Integer, Custo
         Customer customer = null;
         try (Session session = SessionFactoryDB.getSession()) {
             transaction = session.beginTransaction();
-            customer = session.find(Customer.class, key);//TODO что лучше find или load?
+            customer = session.get(Customer.class, key);
             transaction.commit();
         } catch (RuntimeException e) {
             if (transaction != null) {
@@ -44,7 +44,7 @@ public class HibernateDAOCustomerImpl extends HibernateDAOGeneral<Integer, Custo
         List<Customer> customers = new ArrayList<>();
         try (Session session = SessionFactoryDB.getSession()) {
             transaction = session.beginTransaction();
-            customers = (List<Customer>)session.createQuery("FROM Customer").list(); //TODO как тут лучше поступить с "сырыми" данными?
+            customers = (List<Customer>)session.createQuery("FROM Customer").list(); //TODO 8. как тут лучше поступить с "сырыми" данными?
             transaction.commit();
         } catch (RuntimeException e) {
             if (transaction != null) {

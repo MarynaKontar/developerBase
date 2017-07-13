@@ -20,7 +20,7 @@ public class Skill implements Serializable {
 
     private String name;
 
-    @ManyToMany(mappedBy = "skills")
+    @ManyToMany(mappedBy = "skills")// !!!не в коем случае нельзя cascade = CascadeType.REMOVE. Иначе при удалении skill удалит всех developer, у которЫх есть такой skill
     private List<Developer> developers = new ArrayList<>();
 
     public Skill() {
@@ -64,7 +64,7 @@ public class Skill implements Serializable {
         return "Skill{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-//                ", developers=" + developers +  //TODO будет StackOverflowError, если и в Skill и в Developer выводить соответственно developers и skills (будут циклически ссылаться друг на друга)
+//                ", developers=" + developers +  // будет StackOverflowError, если и в Skill и в Developer выводить соответственно developers и skills (будут циклически ссылаться друг на друга)
                 '}';
     }
 }

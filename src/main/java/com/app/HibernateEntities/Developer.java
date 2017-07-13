@@ -1,9 +1,16 @@
 package com.app.HibernateEntities;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by User on 04.06.2017.
@@ -23,7 +30,7 @@ public class Developer implements Serializable{
 
     private String lastName;
 
-    @ManyToMany(cascade = {CascadeType.REFRESH})// если оставить LAZY, то не подтянет skills и, например при выводе  daoDeveloper.getAll().forEach(System.out::println) будет ошибка в toString() (skills)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})// если оставить LAZY, то не подтянет skills и, например при выводе  daoDeveloper.getAll().forEach(System.out::println) будет ошибка в toString() (skills)
     private List<Skill> skills;
 
 //    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -92,6 +99,20 @@ public class Developer implements Serializable{
         skill.getDevelopers().remove( this );
     }
 
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Developer developer = (Developer) o;
+//        return Objects.equals(name, developer.name) &&
+//                Objects.equals(lastName, developer.lastName);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(name, lastName);
+//    }
+
     @Override
     public String toString() {
         return "Developer{" +
@@ -102,8 +123,4 @@ public class Developer implements Serializable{
 //                ", projects=" + projects +
                 '}';
     }
-
-//    public String toStringProjects() {
-//        return "projects=" + projects;
-//    }
 }

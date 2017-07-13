@@ -7,4 +7,5 @@ import com.app.HibernateEntities.Skill;
  * Created by User on 30.06.2017.
  */
 public interface HibernateDAOSkill extends DAO<Integer, Skill> {
+    void deleteById(Integer id);
 }

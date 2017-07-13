@@ -23,7 +23,7 @@ public class HibernateDAOCompanyImpl extends HibernateDAOGeneral<Integer, Compan
         Company company = null;
         try (Session session = SessionFactoryDB.getSession()) {
             transaction = session.beginTransaction();
-            company = session.find(Company.class, key);//TODO что лучше find или load?
+            company = session.get(Company.class, key);
             transaction.commit();
         } catch (RuntimeException e) {
             if (transaction != null) {

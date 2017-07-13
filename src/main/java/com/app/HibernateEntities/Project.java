@@ -1,9 +1,12 @@
 package com.app.HibernateEntities;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by User on 04.06.2017.
@@ -31,7 +34,7 @@ public class Project  implements Serializable{
 //    @ManyToMany(mappedBy = "projects")
 //    private List<Developer> developers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL,  orphanRemoval = true)
     private List<DeveloperProject> developers = new ArrayList<>();
 
     public Project() {
@@ -103,10 +106,30 @@ public class Project  implements Serializable{
     public void removeDeveloper(Developer developer){
         DeveloperProject developerProject = new DeveloperProject(developer, this);
         developer.getProjects().remove(developerProject);
+        developers.remove(developerProject);
         developerProject.setDeveloper(null);
         developerProject.setProject(null);
-        developerProject.setSalary(0);//TODO как сделать, чтобы garbage collector знал, что ему надо удалить 'тот объект (developerProject)? Т.е. какое значение salary присвоить?
+        developerProject.setSalary(null);
     }
+
+
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Project project = (Project) o;
+//        return cost == project.cost &&
+//                Objects.equals(name, project.name) &&
+//                Objects.equals(company, project.company) &&
+//                Objects.equals(customer, project.customer);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(name, cost, company, customer);
+//    }
+
 
     @Override
     public String toString() {
@@ -116,6 +139,7 @@ public class Project  implements Serializable{
                 ", cost=" + cost +
                 ", company=" + company +
                 ", customer=" + customer +
+
 //                ", developers=" + developers +
                 '}';
     }

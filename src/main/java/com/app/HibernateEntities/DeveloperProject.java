@@ -2,6 +2,7 @@ package com.app.HibernateEntities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Created by User on 30.06.2017.
@@ -16,7 +17,7 @@ public class DeveloperProject implements Serializable{
     @ManyToOne
     private Project project;
 
-    private int salary;
+    private Integer salary;
 
     public DeveloperProject() {
     }
@@ -26,7 +27,7 @@ public class DeveloperProject implements Serializable{
         this.project = project;
     }
 
-    public DeveloperProject(Developer developer, Project project, int salary) {
+    public DeveloperProject(Developer developer, Project project, Integer salary) {
         this.developer = developer;
         this.project = project;
         this.salary = salary;
@@ -48,32 +49,27 @@ public class DeveloperProject implements Serializable{
         this.project = project;
     }
 
-    public int getSalary() {
+    public Integer getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(Integer salary) {
         this.salary = salary;
     }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         DeveloperProject that = (DeveloperProject) o;
-
-        if (salary != that.salary) return false;
-        if (!developer.equals(that.developer)) return false;
-        return project.equals(that.project);
+        return Objects.equals(developer, that.developer) &&
+                Objects.equals(project, that.project);
     }
 
     @Override
     public int hashCode() {
-        int result = developer.hashCode();
-        result = 31 * result + project.hashCode();
-        result = 31 * result + salary;
-        return result;
+        return Objects.hash(developer, project);
     }
 
     @Override
