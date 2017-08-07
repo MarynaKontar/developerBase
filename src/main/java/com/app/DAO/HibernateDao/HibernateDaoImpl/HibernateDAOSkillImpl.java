@@ -47,7 +47,7 @@ public class HibernateDAOSkillImpl extends HibernateDAOGeneral<Integer, Skill> i
         List<Skill> skills = new ArrayList<>();
         try (Session session = SessionFactoryDB.getSession()) {
             transaction = session.beginTransaction();
-            skills = (List<Skill>)session.createQuery("FROM Skill").list(); //TODO как тут лучше поступить с "сырыми" данными?
+            skills = (List<Skill>) session.createQuery("FROM Skill").list(); //TODO как тут лучше поступить с "сырыми" данными?
             transaction.commit();
         } catch (RuntimeException e) {
             if (transaction != null) {
@@ -63,18 +63,19 @@ public class HibernateDAOSkillImpl extends HibernateDAOGeneral<Integer, Skill> i
     }
 
 
-
-    // TODO 7. Не вышло. Опять видимо что-то неправильно с состояниями entity
+    // TODO 7. Вышло
     @Override
-    public void deleteById(Integer id){
+    public void deleteById(Integer id) {
         Transaction transaction = null;
-    List<Developer> developers = new ArrayList<>();
-    try (Session session = SessionFactoryDB.getSession()) {
+        List<Developer> developers = new ArrayList<>();
+        try (Session session = SessionFactoryDB.getSession()) {
             transaction = session.beginTransaction();
-           Skill skill = session.getReference(Skill.class, id);
-        developers = (List<Developer>) session.createQuery("FROM Developer").list();
-        developers.forEach(developer -> developer.removeSkill(read(id).get()));
-            session.delete(skill);
+
+            Skill skill = session.getReference(Skill.class, id);
+            developers = (List<Developer>) session.createQuery("FROM Developer").list();
+            developers.forEach(developer -> developer.removeSkill(skill));//удаляю skill с key=id у каждого developer (удаляю из таблицы developer_skill)
+            session.delete(skill);//удаляю из таблицы skill
+
             transaction.commit();
         } catch (RuntimeException e) {
             if (transaction != null) {

@@ -64,12 +64,13 @@ public abstract class HibernateDAOGeneral<K extends Serializable, T> implements 
             transaction.commit();
         } catch (RuntimeException e) {
             if (transaction != null) {
+                System.out.println("Cannot delete entity " + entity);
                 try {
                     transaction.rollback();
                 } catch (RuntimeException e1) {
                     throw new DatabaseException(e1);
                 }
-            }
+            } else System.out.println("Transaction is null");
         }
     }
 }

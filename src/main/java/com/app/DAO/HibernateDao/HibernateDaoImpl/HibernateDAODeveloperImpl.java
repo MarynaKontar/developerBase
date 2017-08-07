@@ -24,7 +24,7 @@ public class HibernateDAODeveloperImpl extends HibernateDAOGeneral<Integer, Deve
         Developer developer = null;
         try (Session session = SessionFactoryDB.getSession()) {
             transaction = session.beginTransaction();
-            developer = session.getReference(Developer.class, key);// Load  не делает select, а "на слово" верит, что такой developer есть в БД
+            developer = session.get(Developer.class, key);// Load  не делает select, а "на слово" верит, что такой developer есть в БД
             transaction.commit();
         } catch (RuntimeException e) {
             if (transaction != null) {
@@ -89,8 +89,10 @@ public class HibernateDAODeveloperImpl extends HibernateDAOGeneral<Integer, Deve
         Transaction transaction = null;
         try (Session session = SessionFactoryDB.getSession()) {
             transaction = session.beginTransaction();
-            Developer developer = session.getReference(Developer.class, id);
+
+            Developer developer = session.getReference(Developer.class, id);//удаляет и при get, и при getReference
             session.delete(developer);
+
             transaction.commit();
         } catch (RuntimeException e) {
             if (transaction != null) {

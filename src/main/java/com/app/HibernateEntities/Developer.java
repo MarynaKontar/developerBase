@@ -14,6 +14,9 @@ import java.util.Objects;
 
 /**
  * Created by User on 04.06.2017.
+ *Developer-skills:  Bidirectional @ManyToMany
+ A bidirectional @ManyToMany association has an owning and a mappedBy side. To preserve synchronicity between both
+ sides, it’s good practice to provide helper methods for adding or removing child entities ( addSkill, removeSkill).
  */
 @Entity
 //@Table(name = "developer")

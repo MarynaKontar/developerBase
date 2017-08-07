@@ -30,10 +30,9 @@
                       value="root"/>
             <property name="javax.persistence.jdbc.password"
                       value="123581321lL"/>
-            <!-- <property name="hibernate.hbm2ddl.auto"
-                       value="update" />-->
-             <!--<property name="javax.persistence.schema-generation.database.action" value="update"/>-->
-            <property name="javax.persistence.schema-generation.database.action" value="update"/>
+            <!--<property name="hibernate.hbm2ddl.auto" value="update" />-->
+            <!--<property name="javax.persistence.schema-generation.database.action" value="update"/>-->
+            <!--<property name="javax.persistence.schema-generation.database.action" value=""/>-->
             <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
