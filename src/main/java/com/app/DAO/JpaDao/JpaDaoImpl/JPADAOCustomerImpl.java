@@ -4,8 +4,10 @@ import com.app.DAO.JpaDao.JPADAOGeneral;
 import com.app.DAO.JpaDao.JpaDAOCustomer;
 import com.app.HibernateEntities.Customer;
 import com.app.Utils.EMFactory;
+import org.hibernate.Transaction;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
